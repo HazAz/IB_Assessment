@@ -10,12 +10,13 @@ public class RandomMoverManagerSO : ScriptableObject
 	[Space(10)]
 	[Header("Game Settings Parameters")]
 	[SerializeField] private Vector3 mapBounds = new Vector3(30, 30, 30);
+	[SerializeField] private int segmentSize = 3;
 	[SerializeField] private float minTimeToWaitBeforeMove = 2f;
 	[SerializeField] private float maxTimeToWaitBeforeMove = 10f;
 	[SerializeField] private float minMoveDuration = 1f;
 	[SerializeField] private float maxMoveDuration = 4f;
 
-	private Vector3 segmentSize = new Vector3(3, 3, 3);
+	private Vector3 segmentSizeVector;
 	private Dictionary<Vector3Int, List<FindNearestNeighbour>> segmentsDict = new();
 
 	public Dictionary<Vector3Int, List<FindNearestNeighbour>> SegmentsDict { get { return segmentsDict; } }
@@ -26,6 +27,7 @@ public class RandomMoverManagerSO : ScriptableObject
 	/// </summary>
 	public void Init()
 	{
+		segmentSizeVector = new Vector3(segmentSize, segmentSize, segmentSize);
 		segmentsDict.Clear();
 	}
 
@@ -85,9 +87,9 @@ public class RandomMoverManagerSO : ScriptableObject
 	public Vector3Int GetSegment(Vector3 position)
 	{
 		return new Vector3Int(
-			Mathf.FloorToInt(position.x / segmentSize.x),
-			Mathf.FloorToInt(position.y / segmentSize.y),
-			Mathf.FloorToInt(position.z / segmentSize.z)
+			Mathf.FloorToInt(position.x / segmentSize),
+			Mathf.FloorToInt(position.y / segmentSize),
+			Mathf.FloorToInt(position.z / segmentSize)
 		);
 	}
 
@@ -133,6 +135,6 @@ public class RandomMoverManagerSO : ScriptableObject
 	/// <returns> The segment size.</returns>
 	public float GetSegmentSize()
 	{
-		return segmentSize.x;
+		return segmentSize;
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class RandomMover : MonoBehaviour
 {
 	[SerializeField] private RandomMoverManagerSO m_moverManager;
+	[SerializeField] private FindNearestNeighbourManagerSO m_findNearestNeighbourManager;
 	[SerializeField] private FindNearestNeighbour m_findNearestNeighbour;
 
 	private void Awake()
@@ -62,6 +63,16 @@ public class RandomMover : MonoBehaviour
 					m_moverManager.RemoveFromSegment(this.m_findNearestNeighbour, previousSegment);
 					m_moverManager.AddToSegment(this.m_findNearestNeighbour, currentSegment);
 				}
+				// Edge case where the object randomly moves only within the same segment may return an incorrect result.
+				// If the correct nearest neighbour is an absolute must, update the segment the object is in every frame its moving
+				// by uncommenting the code below. If optimization is key and not getting the correct result 100% of the time is okay,
+				// Keep it commented.
+				/*
+				else
+				{
+					m_findNearestNeighbourManager.SegmentUpdated(currentSegment);
+				}
+				*/
 
 				elapsedTime += Time.deltaTime;
 				m_findNearestNeighbour.FindNearestNeighbouringObject();

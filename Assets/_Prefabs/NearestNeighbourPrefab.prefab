@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moverManager: {fileID: 11400000, guid: a1ed310125733694182c59b230272d17, type: 2}
+  m_findNearestNeighbourManager: {fileID: 11400000, guid: ce6e5fd2dd667aa43a4c473989970475, type: 2}
   m_findNearestNeighbour: {fileID: 8658063632579751788}
 --- !u!120 &6941943271637628092
 LineRenderer:
